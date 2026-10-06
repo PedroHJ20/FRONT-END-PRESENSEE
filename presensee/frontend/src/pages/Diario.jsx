@@ -3,6 +3,7 @@ import { Link } from "react-router-dom"
 import DashboardLayout from "../layouts/DashboardLayout"
 import GaugeChart from "../components/GaugeChart"
 import ExpandButton from "../components/ExpandButton"
+import AlunoModal from "../components/AlunoModal"
 import { MascotAvatar } from "../components/Icons"
 import {
   alunos,
@@ -23,6 +24,8 @@ function Diario() {
 
   // Um bloco aberto por vez
   const [aberto, setAberto] = useState(null)
+
+  const [alunoModal, setAlunoModal] = useState(null)
 
   const avatar = localStorage.getItem("avatarUsuario") || ""
 
@@ -68,6 +71,13 @@ function Diario() {
             {aluno.nome}
             <small>{aluno.turma}</small>
           </span>
+          <button
+              type="button"
+              className="diario-ver-dados"
+              onClick={() => setAlunoModal(aluno)}
+            >
+              Ver dados
+            </button>
           <Link to={`/diario/aluno/${aluno.id}`} className="diario-acompanhar">
             Acompanhar
           </Link>
@@ -206,6 +216,13 @@ function Diario() {
         </div>
 
       </div>
+
+      {alunoModal && (
+        <AlunoModal
+          aluno={alunoModal}
+          onClose={() => setAlunoModal(null)}
+        />
+      )}
 
     </DashboardLayout>
 

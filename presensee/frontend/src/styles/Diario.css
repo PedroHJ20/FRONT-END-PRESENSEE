@@ -123,6 +123,10 @@
   gap: 3px;
 }
 
+.diario-lista li:has(.diario-acoes) {
+  align-items: center;
+}
+
 .diario-link-aluno {
   display: inline-flex;
   align-items: center;
@@ -233,7 +237,8 @@
 }
 
 .perfil-linha-meio {
-  grid-template-columns: 1fr 1.7fr;
+  grid-template-columns: 1fr 1fr;
+  align-items: stretch;
   margin-top: 36px;
 }
 
@@ -363,18 +368,13 @@
 }
 
 .perfil-card-quantidade {
-  min-height: 145px;
   justify-content: space-between;
 }
-
 .perfil-card-titulo-linha {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   gap: 12px;
-}
-
-.perfil-card-titulo-linha h2 {
-  max-width: 130px;
 }
 
 .perfil-card-titulo-linha strong {
@@ -685,4 +685,187 @@
 .diario-acompanhar:focus-visible {
   outline: 3px solid #b9a8ff;
   outline-offset: 2px;
+}
+
+.diario-acoes {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+ 
+.diario-ver-dados {
+  padding: 5px 13px;
+ 
+  border: 1px solid var(--color-primary);
+  border-radius: 8px;
+  background: white;
+  color: var(--color-primary-dark);
+ 
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+}
+ 
+.diario-ver-dados:hover {
+  background: #f2efff;
+}
+ 
+.diario-ver-dados:focus-visible {
+  outline: 3px solid #b9a8ff;
+  outline-offset: 2px;
+}
+ 
+ 
+/* modal: dados do aluno */
+ 
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+ 
+  padding: 16px;
+  box-sizing: border-box;
+ 
+  background: rgba(0, 0, 0, 0.45);
+ 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+ 
+.aluno-modal {
+  position: relative;
+ 
+  width: 560px;
+  max-width: 100%;
+  max-height: 85vh;
+  overflow-y: auto;
+ 
+  padding: 26px;
+  box-sizing: border-box;
+ 
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.25);
+}
+ 
+.aluno-modal-fechar {
+  position: absolute;
+  top: 10px;
+  right: 16px;
+ 
+  border: none;
+  background: none;
+ 
+  font-size: 26px;
+  color: #777;
+  cursor: pointer;
+}
+ 
+.aluno-modal-fechar:hover {
+  color: #222;
+}
+ 
+.aluno-modal h2 {
+  margin: 0;
+  padding-right: 30px;
+  font-size: 20px;
+  color: #111;
+}
+ 
+.aluno-modal-sub {
+  margin: 4px 0 20px;
+  color: var(--color-text-muted);
+  font-size: 13px;
+}
+ 
+.aluno-modal section {
+  margin-bottom: 20px;
+}
+ 
+.aluno-modal h3 {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+ 
+  margin: 0 0 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-primary-dark);
+}
+ 
+.aluno-modal h3 small {
+  color: var(--color-text-muted);
+  font-size: 12px;
+  font-weight: 400;
+}
+ 
+.aluno-modal p {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: #222;
+}
+ 
+.aluno-modal-lista {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+ 
+.aluno-modal-lista li {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+ 
+  padding: 8px 0;
+  border-bottom: 1px solid #eeeeee;
+ 
+  font-size: 13px;
+  color: #222;
+}
+ 
+.aluno-modal-lista li:last-child {
+  border-bottom: none;
+}
+ 
+.aluno-modal-lista small {
+  color: var(--color-text-muted);
+  font-size: 12px;
+}
+ 
+.aluno-modal-lista small.justificada {
+  color: #168438;
+}
+ 
+.aluno-modal-lista small.sem-justificativa {
+  color: #c40000;
+}
+ 
+.aluno-modal .aluno-modal-resultados {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 0;
+}
+ 
+.aluno-modal-resultados > div {
+  padding: 12px 14px;
+  background: #f7f7fb;
+  border-radius: 10px;
+}
+ 
+@media (max-width: 520px) {
+ 
+  .aluno-modal .aluno-modal-resultados {
+    grid-template-columns: 1fr;
+  }
+ 
+  .diario-lista li:has(.diario-acoes) {
+    flex-wrap: wrap;
+  }
+ 
 }
