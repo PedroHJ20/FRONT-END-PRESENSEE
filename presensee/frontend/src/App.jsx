@@ -1,6 +1,8 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom"
 
 import Login from "./pages/Login"
+import Welcome from "./pages/Welcome"
+import CadastroEscola from "./pages/CadastroEscola"
 import Dashboard from "./pages/Dashboard"
 import Alunos from "./pages/Alunos"
 import Alertas from "./pages/Alertas"
@@ -20,9 +22,14 @@ function App() {
      <Routes>
 
   <Route
-    path="/"
-    element={<Navigate to="/login" replace />}
-  />
+  path="/"
+  element={<Welcome />}
+/>
+
+<Route
+  path="/interno/nova-escola"
+  element={<CadastroEscola />}
+/>
 
   <Route
     path="/login"

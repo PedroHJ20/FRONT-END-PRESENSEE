@@ -1,3 +1,4 @@
+
 import DashboardLayout from "../layouts/DashboardLayout"
 import "../styles/Alunos.css"
 import { useMemo, useState } from "react"
@@ -5,7 +6,6 @@ import { useMemo, useState } from "react"
 function Alunos() {
 
   const [alunos] = useState([
-
     {
       nome: "Maria Joaquina",
       matricula: "001",
@@ -13,7 +13,6 @@ function Alunos() {
       frequencia: 95,
       risco: "Baixo"
     },
-
     {
       nome: "João Silva",
       matricula: "002",
@@ -21,7 +20,6 @@ function Alunos() {
       frequencia: 87,
       risco: "Baixo"
     },
-
     {
       nome: "Marcos Heitor",
       matricula: "003",
@@ -29,7 +27,6 @@ function Alunos() {
       frequencia: 82,
       risco: "Médio"
     },
-
     {
       nome: "Ana Beatriz",
       matricula: "004",
@@ -37,7 +34,6 @@ function Alunos() {
       frequencia: 76,
       risco: "Médio"
     },
-
     {
       nome: "Pedro Henrique",
       matricula: "005",
@@ -45,7 +41,6 @@ function Alunos() {
       frequencia: 66,
       risco: "Alto"
     },
-
     {
       nome: "Gabriel Soares",
       matricula: "006",
@@ -53,77 +48,43 @@ function Alunos() {
       frequencia: 65,
       risco: "Alto"
     }
-
   ])
 
-
-  // =========================
-  // FILTROS
-  // =========================
-
   const [busca, setBusca] = useState("")
-
-  const [turmaSelecionada, setTurmaSelecionada] =
-    useState("")
-
-  const [riscoSelecionado, setRiscoSelecionado] =
-    useState("")
-
-  const [frequenciaSelecionada, setFrequenciaSelecionada] =
-    useState("")
-
-
-  // =========================
-  // ALUNOS FILTRADOS
-  // =========================
+  const [turmaSelecionada, setTurmaSelecionada] = useState("")
+  const [riscoSelecionado, setRiscoSelecionado] = useState("")
+  const [frequenciaSelecionada, setFrequenciaSelecionada] = useState("")
 
   const alunosFiltrados = useMemo(() => {
 
     return alunos.filter((aluno) => {
 
       const nomeCorresponde =
-        aluno.nome
-          .toLowerCase()
-          .includes(busca.toLowerCase())
-
+        aluno.nome.toLowerCase().includes(busca.toLowerCase())
 
       const turmaCorresponde =
         turmaSelecionada === "" ||
         aluno.turma === turmaSelecionada
 
-
       const riscoCorresponde =
         riscoSelecionado === "" ||
         aluno.risco === riscoSelecionado
 
-
       let frequenciaCorresponde = true
 
-
       if (frequenciaSelecionada === "acima-80") {
-
-        frequenciaCorresponde =
-          aluno.frequencia > 80
-
+        frequenciaCorresponde = aluno.frequencia > 80
       }
 
-
       if (frequenciaSelecionada === "70-80") {
-
         frequenciaCorresponde =
           aluno.frequencia >= 70 &&
           aluno.frequencia <= 80
-
       }
-
 
       if (frequenciaSelecionada === "abaixo-70") {
-
-        frequenciaCorresponde =
-          aluno.frequencia < 70
-
+        frequenciaCorresponde = aluno.frequencia < 70
       }
-
 
       return (
         nomeCorresponde &&
@@ -131,7 +92,6 @@ function Alunos() {
         riscoCorresponde &&
         frequenciaCorresponde
       )
-
     })
 
   }, [
@@ -142,29 +102,19 @@ function Alunos() {
     frequenciaSelecionada
   ])
 
-
-  // =========================
-  // POPUPS
-  // =========================
-
-  const [alunoSelecionado, setAlunoSelecionado] =
-    useState(null)
+  const [alunoSelecionado, setAlunoSelecionado] = useState(null)
 
   const [mostrarFrequencia, setMostrarFrequencia] =
     useState(false)
 
+  const [mostrarNotas, setMostrarNotas] =
+    useState(false)
 
-  // =========================
-  // MÊS SELECIONADO
-  // =========================
+  const [mostrarOcorrencias, setMostrarOcorrencias] =
+    useState(false)
 
   const [mesSelecionado, setMesSelecionado] =
     useState("Agosto")
-
-
-  // =========================
-  // MESES
-  // =========================
 
   const meses = [
     "Janeiro",
@@ -181,129 +131,61 @@ function Alunos() {
     "Dezembro"
   ]
 
-
-  // =========================
-  // DADOS DOS MESES
-  // =========================
-
   const dadosFrequencia = {
-
-    Janeiro: {
-      dias: 31,
-      faltas: 2
-    },
-
-    Fevereiro: {
-      dias: 28,
-      faltas: 3
-    },
-
-    Março: {
-      dias: 31,
-      faltas: 2
-    },
-
-    Abril: {
-      dias: 30,
-      faltas: 4
-    },
-
-    Maio: {
-      dias: 31,
-      faltas: 3
-    },
-
-    Junho: {
-      dias: 30,
-      faltas: 4
-    },
-
-    Julho: {
-      dias: 31,
-      faltas: 5
-    },
-
-    Agosto: {
-      dias: 15,
-      faltas: 3
-    },
-
-    Setembro: {
-      dias: 30,
-      faltas: 2
-    },
-
-    Outubro: {
-      dias: 31,
-      faltas: 3
-    },
-
-    Novembro: {
-      dias: 30,
-      faltas: 2
-    },
-
-    Dezembro: {
-      dias: 31,
-      faltas: 1
-    }
-
+    Janeiro: { dias: 31, faltas: 2 },
+    Fevereiro: { dias: 28, faltas: 3 },
+    Março: { dias: 31, faltas: 2 },
+    Abril: { dias: 30, faltas: 4 },
+    Maio: { dias: 31, faltas: 3 },
+    Junho: { dias: 30, faltas: 4 },
+    Julho: { dias: 31, faltas: 5 },
+    Agosto: { dias: 15, faltas: 3 },
+    Setembro: { dias: 30, faltas: 2 },
+    Outubro: { dias: 31, faltas: 3 },
+    Novembro: { dias: 30, faltas: 2 },
+    Dezembro: { dias: 31, faltas: 1 }
   }
-
-
-  // =========================
-  // ABRIR ALUNO
-  // =========================
 
   function abrirAluno(aluno) {
-
     setAlunoSelecionado(aluno)
-
+    setMostrarFrequencia(false)
+    setMostrarNotas(false)
+    setMostrarOcorrencias(false)
   }
-
-
-  // =========================
-  // FECHAR POPUP
-  // =========================
 
   function fecharAluno() {
-
     setAlunoSelecionado(null)
-
     setMostrarFrequencia(false)
-
+    setMostrarNotas(false)
+    setMostrarOcorrencias(false)
   }
-
-
-  // =========================
-  // ABRIR FREQUÊNCIA
-  // =========================
 
   function abrirFrequencia() {
-
     setMostrarFrequencia(true)
-
+    setMostrarNotas(false)
+    setMostrarOcorrencias(false)
   }
 
+  function abrirNotas() {
+    setMostrarNotas(true)
+    setMostrarFrequencia(false)
+    setMostrarOcorrencias(false)
+  }
 
-  // =========================
-  // VOLTAR
-  // =========================
+  function abrirOcorrencias() {
+    setMostrarOcorrencias(true)
+    setMostrarFrequencia(false)
+    setMostrarNotas(false)
+  }
 
   function voltarParaAluno() {
-
     setMostrarFrequencia(false)
-
+    setMostrarNotas(false)
+    setMostrarOcorrencias(false)
   }
-
-
-  // =========================
-  // GERAR DIAS DO MÊS
-  // =========================
 
   const dadosMesAtual =
     dadosFrequencia[mesSelecionado]
-
 
   const diasDoMes = useMemo(() => {
 
@@ -320,22 +202,15 @@ function Alunos() {
         dia === 5 ||
         dia === 12
 
-
       dias.push({
         dia: dia,
         status: faltou ? "falta" : "presente"
       })
-
     }
 
     return dias
 
   }, [dadosMesAtual])
-
-
-  // =========================
-  // PERCENTUAL DO MÊS
-  // =========================
 
   const percentualFrequencia = useMemo(() => {
 
@@ -350,23 +225,88 @@ function Alunos() {
 
   }, [diasDoMes])
 
+  const [mesNotas, setMesNotas] = useState("Agosto")
+
+const notasPorMes = {
+  Julho: [
+    { disciplina: "Matemática", n1: 6.0, n2: 7.0 },
+    { disciplina: "Dev. Mobile", n1: 7.5, n2: 8.0 },
+    { disciplina: "História", n1: 6.5, n2: 6.0 },
+    { disciplina: "Português", n1: 7.0, n2: 7.0 },
+    { disciplina: "PI", n1: 8.0, n2: 7.5 },
+    { disciplina: "Inglês", n1: 6.0, n2: 6.5 }
+  ],
+  Agosto: [
+    { disciplina: "Matemática", n1: 7.0, n2: 3.0 },
+    { disciplina: "Dev. Mobile", n1: 7.0, n2: 3.0 },
+    { disciplina: "História", n1: 7.0, n2: 3.0 },
+    { disciplina: "Português", n1: 7.0, n2: 3.0 },
+    { disciplina: "PI", n1: 7.0, n2: 3.0 },
+    { disciplina: "Inglês", n1: 7.0, n2: 3.0 }
+  ]
+}
+
+const notasDoMes = (notasPorMes[mesNotas] || []).map((n) => {
+  const media = (n.n1 + n.n2) / 2
+
+  let tendencia = "estavel"
+  if (n.n2 > n.n1) tendencia = "subindo"
+  if (n.n2 < n.n1) tendencia = "caindo"
+
+  return { ...n, media, tendencia }
+})
+
+function classeNota(valor) {
+  if (valor < 5) return "nota-baixa"
+  if (valor < 7) return "nota-media"
+  return "nota-alta"
+}
+
+const textoTendencia = {
+  subindo: "↑ Subindo",
+  caindo: "↓ Caindo",
+  estavel: "→ Estável"
+}
+
+const ocorrencias = [
+  {
+    tipo: "falta",
+    icone: "⚠️",
+    titulo: "Falta injustificada",
+    data: "12 de Agosto",
+    descricao: "Aluno não compareceu à aula."
+  },
+  {
+    tipo: "desempenho",
+    icone: "📝",
+    titulo: "Baixo desempenho",
+    data: "08 de Agosto",
+    descricao: "Desempenho abaixo da média na avaliação."
+  },
+  {
+    tipo: "conversa",
+    icone: "💬",
+    titulo: "Conversa com o monitor",
+    data: "05 de Agosto",
+    descricao: "Conversa realizada para acompanhamento do aluno."
+  },
+  {
+    tipo: "falta",
+    icone: "⚠️",
+    titulo: "Faltas recorrentes",
+    data: "01 de Agosto",
+    descricao: "Registrado aumento no número de faltas."
+  }
+]
 
   return (
 
     <DashboardLayout>
 
-
       <div className="alunos-page">
 
-
-        {/* =========================
-            CABEÇALHO
-        ========================= */}
-
         <div className="alunos-header">
-
           <div>
-
             <h1>
               Olá, Visitante!
             </h1>
@@ -374,15 +314,8 @@ function Alunos() {
             <p>
               Alunos
             </p>
-
           </div>
-
         </div>
-
-
-        {/* =========================
-            BUSCA
-        ========================= */}
 
         <input
           className="search-aluno"
@@ -392,13 +325,7 @@ function Alunos() {
           onChange={(e) => setBusca(e.target.value)}
         />
 
-
-        {/* =========================
-            FILTROS
-        ========================= */}
-
         <div className="filters">
-
 
           <select
             value={turmaSelecionada}
@@ -406,7 +333,6 @@ function Alunos() {
               setTurmaSelecionada(e.target.value)
             }
           >
-
             <option value="">
               Turma
             </option>
@@ -422,9 +348,7 @@ function Alunos() {
             <option value="3A">
               3A
             </option>
-
           </select>
-
 
           <select
             value={riscoSelecionado}
@@ -432,7 +356,6 @@ function Alunos() {
               setRiscoSelecionado(e.target.value)
             }
           >
-
             <option value="">
               Nível de risco
             </option>
@@ -448,9 +371,7 @@ function Alunos() {
             <option value="Alto">
               Alto
             </option>
-
           </select>
-
 
           <select
             value={frequenciaSelecionada}
@@ -458,7 +379,6 @@ function Alunos() {
               setFrequenciaSelecionada(e.target.value)
             }
           >
-
             <option value="">
               Frequência
             </option>
@@ -474,43 +394,20 @@ function Alunos() {
             <option value="abaixo-70">
               Abaixo de 70%
             </option>
-
           </select>
 
-
         </div>
-
-
-        {/* =========================
-            TABELA
-        ========================= */}
 
         <table className="students-table">
 
           <thead>
-
             <tr>
-
-              <th>
-                Aluno
-              </th>
-
-              <th>
-                Turma
-              </th>
-
-              <th>
-                Frequência
-              </th>
-
-              <th>
-                Risco
-              </th>
-
+              <th>Aluno</th>
+              <th>Turma</th>
+              <th>Frequência</th>
+              <th>Risco</th>
             </tr>
-
           </thead>
-
 
           <tbody>
 
@@ -553,15 +450,12 @@ function Alunos() {
 
             ))}
 
-
             {alunosFiltrados.length === 0 && (
 
               <tr>
-
                 <td colSpan="4">
                   Nenhum aluno encontrado.
                 </td>
-
               </tr>
 
             )}
@@ -569,11 +463,6 @@ function Alunos() {
           </tbody>
 
         </table>
-
-
-        {/* =========================
-            PAGINAÇÃO
-        ========================= */}
 
         <div className="pagination">
 
@@ -599,15 +488,15 @@ function Alunos() {
 
         </div>
 
-
       </div>
 
 
-      {/* ==================================================
-          POPUP DO ALUNO
-      ================================================== */}
+      {/* POPUP PRINCIPAL */}
 
-      {alunoSelecionado && !mostrarFrequencia && (
+      {alunoSelecionado &&
+        !mostrarFrequencia &&
+        !mostrarNotas &&
+        !mostrarOcorrencias && (
 
         <div
           className="student-modal-overlay"
@@ -626,13 +515,11 @@ function Alunos() {
               ×
             </button>
 
-
             <div className="student-modal-header">
 
               <div className="student-avatar">
                 👤
               </div>
-
 
               <div>
 
@@ -646,7 +533,6 @@ function Alunos() {
 
               </div>
 
-
               <span
                 className={
                   `modal-risk ${alunoSelecionado.risco.toLowerCase()}`
@@ -656,7 +542,6 @@ function Alunos() {
               </span>
 
             </div>
-
 
             <div className="student-summary">
 
@@ -672,7 +557,6 @@ function Alunos() {
 
               </div>
 
-
               <div>
 
                 <strong>
@@ -684,7 +568,6 @@ function Alunos() {
                 </span>
 
               </div>
-
 
               <button
                 className="frequency-summary"
@@ -702,7 +585,6 @@ function Alunos() {
               </button>
 
             </div>
-
 
             <div className="risk-reason">
 
@@ -728,17 +610,16 @@ function Alunos() {
 
             </div>
 
-
             <div className="student-actions">
 
-              <button>
+              <button onClick={abrirNotas}>
                 📝
                 <span>
                   Notas
                 </span>
               </button>
 
-              <button>
+              <button onClick={abrirOcorrencias}>
                 📋
                 <span>
                   Ocorrências
@@ -754,7 +635,6 @@ function Alunos() {
 
             </div>
 
-
           </div>
 
         </div>
@@ -762,9 +642,7 @@ function Alunos() {
       )}
 
 
-      {/* ==================================================
-          POPUP DE FREQUÊNCIA
-      ================================================== */}
+      {/* POPUP FREQUÊNCIA */}
 
       {alunoSelecionado && mostrarFrequencia && (
 
@@ -785,17 +663,11 @@ function Alunos() {
               ×
             </button>
 
-
-            {/* =========================
-                CABEÇALHO DO ALUNO
-            ========================= */}
-
             <div className="frequency-student-header">
 
               <div className="student-avatar">
                 👤
               </div>
-
 
               <div>
 
@@ -809,7 +681,6 @@ function Alunos() {
 
               </div>
 
-
               <span
                 className={
                   `modal-risk ${alunoSelecionado.risco.toLowerCase()}`
@@ -820,11 +691,6 @@ function Alunos() {
 
             </div>
 
-
-            {/* =========================
-                TÍTULO E MÊS
-            ========================= */}
-
             <div className="frequency-title">
 
               <div>
@@ -832,7 +698,6 @@ function Alunos() {
                 <h2>
                   Frequência Geral
                 </h2>
-
 
                 <select
                   className="frequency-month-select"
@@ -857,7 +722,6 @@ function Alunos() {
 
               </div>
 
-
               <div className="frequency-circle">
 
                 <span>
@@ -868,11 +732,6 @@ function Alunos() {
 
             </div>
 
-
-            {/* =========================
-                DIAS DA SEMANA
-            ========================= */}
-
             <div className="frequency-week">
 
               <span>seg</span>
@@ -882,11 +741,6 @@ function Alunos() {
               <span>sex</span>
 
             </div>
-
-
-            {/* =========================
-                DIAS
-            ========================= */}
 
             <div className="frequency-grid">
 
@@ -901,18 +755,15 @@ function Alunos() {
                     {dia.dia}
                   </span>
 
-
                   <span
                     className={
                       `day-status ${dia.status}`
                     }
                   >
-
                     {dia.status === "presente"
                       ? "✓"
                       : "×"
                     }
-
                   </span>
 
                 </div>
@@ -921,11 +772,6 @@ function Alunos() {
 
             </div>
 
-
-            {/* =========================
-                VOLTAR
-            ========================= */}
-
             <button
               className="back-frequency"
               onClick={voltarParaAluno}
@@ -933,17 +779,188 @@ function Alunos() {
               ← Voltar
             </button>
 
-
           </div>
 
         </div>
 
       )}
 
+
+    {/* POPUP NOTAS */}
+
+{alunoSelecionado && mostrarNotas && (
+
+  <div className="student-modal-overlay" onClick={fecharAluno}>
+
+    <div
+      className="detail-modal"
+      onClick={(e) => e.stopPropagation()}
+    >
+
+      <button className="close-modal" onClick={fecharAluno}>
+        ×
+      </button>
+
+      <div className="detail-student-header">
+        <div className="student-avatar">👤</div>
+
+        <div>
+          <h2>{alunoSelecionado.nome}</h2>
+          <p>{alunoSelecionado.turma}</p>
+        </div>
+
+        <span className={`modal-risk ${alunoSelecionado.risco.toLowerCase()}`}>
+          Risco {alunoSelecionado.risco}
+        </span>
+      </div>
+
+      <h2 className="detail-title">Notas</h2>
+
+      <div className="notes-filter">
+        <label htmlFor="mes-notas">Ver de</label>
+
+        <select
+          id="mes-notas"
+          value={mesNotas}
+          onChange={(e) => setMesNotas(e.target.value)}
+        >
+          {meses.map((mes) => (
+            <option key={mes} value={mes}>
+              {mes}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      {notasDoMes.length > 0 ? (
+        <>
+          <div className="notes-table-wrapper">
+            <table className="notes-table">
+              <thead>
+                <tr>
+                  <th>Disciplina</th>
+                  <th>1</th>
+                  <th>2</th>
+                  <th>Média</th>
+                  <th>Tendência</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                {notasDoMes.map((nota) => (
+                  <tr key={nota.disciplina}>
+                    <td className="note-subject">{nota.disciplina}</td>
+                    <td>{nota.n1.toFixed(1)}</td>
+                    <td>{nota.n2.toFixed(1)}</td>
+                    <td>
+                      <span className={`note-badge ${classeNota(nota.media)}`}>
+                        {nota.media.toFixed(1)}
+                      </span>
+                    </td>
+                    <td>
+                      <span className={`trend ${nota.tendencia}`}>
+                        {textoTendencia[nota.tendencia]}
+                      </span>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          <div className="notes-average">
+            <span>Média geral do mês</span>
+            <strong>
+              {(
+                notasDoMes.reduce((soma, n) => soma + n.media, 0) /
+                notasDoMes.length
+              ).toFixed(1)}
+            </strong>
+          </div>
+        </>
+      ) : (
+        <p className="empty-message">
+          Sem notas registradas neste mês.
+        </p>
+      )}
+
+      <button className="back-frequency" onClick={voltarParaAluno}>
+        ← Voltar
+      </button>
+
+    </div>
+
+  </div>
+
+)}
+
+
+{/* POPUP OCORRÊNCIAS */}
+
+{alunoSelecionado && mostrarOcorrencias && (
+
+  <div className="student-modal-overlay" onClick={fecharAluno}>
+
+    <div
+      className="detail-modal"
+      onClick={(e) => e.stopPropagation()}
+    >
+
+      <button className="close-modal" onClick={fecharAluno}>
+        ×
+      </button>
+
+      <div className="detail-student-header">
+        <div className="student-avatar">👤</div>
+
+        <div>
+          <h2>{alunoSelecionado.nome}</h2>
+          <p>{alunoSelecionado.turma}</p>
+        </div>
+
+        <span className={`modal-risk ${alunoSelecionado.risco.toLowerCase()}`}>
+          Risco {alunoSelecionado.risco}
+        </span>
+      </div>
+
+      <h2 className="detail-title">Ocorrências</h2>
+
+      <p className="detail-subtitle">
+        Histórico de ocorrências do aluno
+      </p>
+
+      <div className="occurrences-list">
+        {ocorrencias.map((item, index) => (
+          <div className={`occurrence-item ${item.tipo}`} key={index}>
+
+            <div className="occurrence-icon">{item.icone}</div>
+
+            <div className="occurrence-content">
+              <div className="occurrence-top">
+                <strong>{item.titulo}</strong>
+                <span>{item.data}</span>
+              </div>
+
+              <p>{item.descricao}</p>
+            </div>
+
+          </div>
+        ))}
+      </div>
+
+      <button className="back-frequency" onClick={voltarParaAluno}>
+        ← Voltar
+      </button>
+
+    </div>
+
+  </div>
+
+)}
+
     </DashboardLayout>
 
   )
-
 }
 
 export default Alunos

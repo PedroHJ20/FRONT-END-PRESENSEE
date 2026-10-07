@@ -1,0 +1,229 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.cadastro-escola-page {
+  width: 100%;
+  min-height: 100vh;
+  background: #f7f7fb;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+}
+
+.cadastro-escola-card {
+  width: 100%;
+  max-width: 480px;
+
+  background: white;
+  border-radius: 24px;
+  padding: 40px;
+  box-shadow: 0 20px 50px rgba(75, 37, 201, 0.12);
+}
+
+
+/* =========================
+   CABEÇALHO
+========================= */
+
+.cadastro-escola-header {
+  margin-bottom: 26px;
+}
+
+.painel-interno-tag {
+  display: inline-block;
+  background: #fff3cd;
+  color: #8a6400;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 6px 12px;
+  border-radius: 999px;
+  margin-bottom: 14px;
+}
+
+.cadastro-escola-header h1 {
+  color: #1a1030;
+  font-size: 24px;
+  margin-bottom: 18px;
+}
+
+.cadastro-escola-steps {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.step {
+  font-size: 12px;
+  font-weight: 700;
+  color: #bbb;
+}
+
+.step.ativo {
+  color: #633df2;
+}
+
+.step-linha {
+  flex: 1;
+  height: 2px;
+  background: #eee;
+}
+
+
+/* =========================
+   FORMULÁRIO
+========================= */
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  margin-bottom: 7px;
+  color: #5135c9;
+  font-weight: bold;
+  font-size: 13px;
+}
+
+.cadastro-input {
+  width: 100%;
+  padding: 13px;
+  margin-bottom: 16px;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  font-size: 14px;
+  outline: none;
+  transition: 0.2s;
+  background: white;
+}
+
+.cadastro-input:focus {
+  border-color: #6c63ff;
+  box-shadow: 0 0 8px rgba(108, 99, 255, 0.2);
+}
+
+.cadastro-linha-dupla {
+  display: flex;
+  gap: 14px;
+}
+
+.cadastro-linha-dupla > div {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+
+/* =========================
+   BOTÕES
+========================= */
+
+.cadastro-button {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 20px;
+  background-image: linear-gradient(135deg, #7c5cff, #4b25c9);
+  color: white;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.25s;
+  margin-top: 6px;
+}
+
+.cadastro-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(99, 61, 242, 0.3);
+}
+
+.cadastro-button-voltar {
+  width: 100%;
+  padding: 14px;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  background: white;
+  color: #555;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.cadastro-botoes-duplos {
+  display: flex;
+  flex-direction: column;
+}
+
+
+/* =========================
+   CONFIRMAÇÃO
+========================= */
+
+.cadastro-confirmacao {
+  text-align: center;
+}
+
+.confirmacao-icone {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #d9f7e5;
+  color: #1aa857;
+  font-size: 26px;
+  font-weight: bold;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px;
+}
+
+.cadastro-confirmacao h2 {
+  color: #1a1030;
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.cadastro-confirmacao p {
+  color: #888;
+  font-size: 13px;
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+.credenciais-box {
+  background: #f7f7fb;
+  border-radius: 14px;
+  padding: 18px;
+  text-align: left;
+  margin-bottom: 20px;
+}
+
+.credenciais-box div {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-bottom: 12px;
+}
+
+.credenciais-box div:last-child {
+  margin-bottom: 0;
+}
+
+.credenciais-box span {
+  font-size: 11px;
+  color: #999;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.credenciais-box strong {
+  font-size: 15px;
+  color: #1a1030;
+}

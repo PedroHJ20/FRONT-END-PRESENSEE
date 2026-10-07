@@ -54,3 +54,38 @@
     cursor:pointer;
 
 }
+
+/* ========================================
+   MODO ESCURO — TURMAS
+======================================== */
+
+[data-theme="dark"] .classes-table {
+    background: #141b2d;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.35);
+}
+
+[data-theme="dark"] .classes-table th {
+    background: #111827;
+    color: #f8fafc;
+}
+
+[data-theme="dark"] .classes-table td {
+    color: #e8edf5;
+    border-bottom-color: #2a3850;
+}
+
+[data-theme="dark"] .classes-table tbody tr:hover {
+    background: #1a2437;
+}
+
+/* Botão editar */
+[data-theme="dark"] .edit-button {
+    background: #00b894;
+    color: #ffffff;
+}
+
+/* Botão excluir */
+[data-theme="dark"] .delete-button {
+    background: #ff7675;
+    color: #ffffff;
+}

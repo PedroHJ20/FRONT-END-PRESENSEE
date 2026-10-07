@@ -1,0 +1,243 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.welcome-page {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  overflow: hidden;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: linear-gradient(135deg, #4b25c9 0%, #7c3dff 40%, #3dd6c9 100%);
+  background-image:
+    radial-gradient(circle, rgba(255, 255, 255, 0.12) 1px, transparent 1px),
+    linear-gradient(135deg, #4b25c9 0%, #7c3dff 40%, #3dd6c9 100%);
+  background-size: 24px 24px, cover;
+}
+
+
+/* =========================
+   BOLHAS DE FUNDO
+========================= */
+
+.welcome-blob-bg {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.4;
+  z-index: 0;
+  animation: flutuarBolha 11s ease-in-out infinite;
+}
+
+.blob-a {
+  width: 380px;
+  height: 380px;
+  top: -140px;
+  right: 6%;
+  background: white;
+}
+
+.blob-b {
+  width: 320px;
+  height: 320px;
+  bottom: -120px;
+  left: 4%;
+  background: #1a1030;
+  opacity: 0.3;
+  animation-delay: 3s;
+}
+
+@keyframes flutuarBolha {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-20px) scale(1.04); }
+}
+
+
+/* =========================
+   QUADRADOS DECORATIVOS DA MARCA
+========================= */
+
+.welcome-shape {
+  position: absolute;
+  z-index: 0;
+}
+
+.shape-fill-1 {
+  width: 150px;
+  height: 150px;
+  top: 8%;
+  left: 5%;
+  border-radius: 34px;
+  background: linear-gradient(135deg, #7dd3fc, #4b25c9);
+  opacity: 0.5;
+  transform: rotate(-15deg);
+  animation: girarQuadrado1 14s ease-in-out infinite;
+}
+
+.shape-fill-2 {
+  width: 130px;
+  height: 130px;
+  bottom: 10%;
+  left: 8%;
+  border-radius: 34px;
+  background: linear-gradient(135deg, #c084fc, #7c5cff);
+  opacity: 0.55;
+  transform: rotate(18deg);
+  animation: girarQuadrado2 12s ease-in-out infinite;
+}
+
+.shape-ring {
+  width: 80px;
+  height: 80px;
+  top: 10%;
+  right: 12%;
+  border-radius: 50%;
+  border: 16px solid rgba(110, 231, 183, 0.55);
+  animation: girarQuadrado3 16s ease-in-out infinite;
+}
+
+.shape-outline {
+  width: 80px;
+  height: 80px;
+  bottom: 14%;
+  right: 10%;
+  border-radius: 24px;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  animation: girarQuadrado1 15s ease-in-out infinite reverse;
+}
+
+@keyframes girarQuadrado1 {
+  0%, 100% { transform: rotate(-15deg) translateY(0); }
+  50%      { transform: rotate(-9deg) translateY(-16px); }
+}
+
+@keyframes girarQuadrado2 {
+  0%, 100% { transform: rotate(18deg) translateY(0); }
+  50%      { transform: rotate(12deg) translateY(14px); }
+}
+
+@keyframes girarQuadrado3 {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-12px); }
+}
+
+
+/* =========================
+   CONTEÚDO
+========================= */
+
+.welcome-content {
+  position: relative;
+  z-index: 2;
+
+  width: 100%;
+  max-width: 1000px;
+  padding: 40px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+
+  animation: entrarConteudo 0.6s ease-out;
+}
+
+@keyframes entrarConteudo {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.welcome-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 28px;
+}
+
+.welcome-text h1 {
+  color: white;
+  font-size: 38px;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.welcome-brand {
+  display: block;
+  font-size: 46px;
+}
+
+.welcome-brand b {
+  color: #6ee7b7;
+}
+
+.welcome-button {
+  background: rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  color: white;
+  padding: 16px 32px;
+  border-radius: 999px;
+  font-size: 16px;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.2);
+  transition: 0.2s;
+}
+
+.welcome-button:hover {
+  background: rgba(255, 255, 255, 0.28);
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.25);
+}
+
+.welcome-mascot {
+  width: 320px;
+  max-width: 40vw;
+  height: auto;
+  filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.3));
+  animation: flutuarMascote 5s ease-in-out infinite;
+}
+
+@keyframes flutuarMascote {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-14px); }
+}
+
+
+/* =========================
+   RESPONSIVIDADE
+========================= */
+
+@media (max-width: 760px) {
+
+  .welcome-content {
+    flex-direction: column-reverse;
+    text-align: center;
+    padding: 30px 24px;
+  }
+
+  .welcome-text {
+    align-items: center;
+  }
+
+  .welcome-text h1 {
+    font-size: 28px;
+  }
+
+  .welcome-brand {
+    font-size: 34px;
+  }
+
+  .welcome-mascot {
+    width: 220px;
+    max-width: 60vw;
+  }
+
+}
