@@ -2,8 +2,10 @@
 import DashboardLayout from "../layouts/DashboardLayout"
 import "../styles/Alunos.css"
 import { useMemo, useState } from "react"
+import { useLocation } from "react-router-dom"
 
 function Alunos() {
+  const location = useLocation()
 
   const [alunos] = useState([
     {
@@ -51,7 +53,15 @@ function Alunos() {
   ])
 
   const [busca, setBusca] = useState("")
-  const [turmaSelecionada, setTurmaSelecionada] = useState("")
+  const [turmaSelecionada, setTurmaSelecionada] = useState(() => {
+  const turmaRecebida = location.state?.turma
+
+  if (turmaRecebida === "1º Ano A") return "1A"
+  if (turmaRecebida === "2º Ano B") return "2B"
+  if (turmaRecebida === "3º Ano A") return "3A"
+
+  return ""
+})
   const [riscoSelecionado, setRiscoSelecionado] = useState("")
   const [frequenciaSelecionada, setFrequenciaSelecionada] = useState("")
 
