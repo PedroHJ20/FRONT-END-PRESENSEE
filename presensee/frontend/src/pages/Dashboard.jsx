@@ -6,12 +6,6 @@ import { MascotAvatar, IconAlunos, IconAlertas } from "../components/Icons"
 import {
   LineChart,
   Line,
-  BarChart,
-  Bar,
-  PieChart,
-  Pie,
-  Cell,
-  Legend,
   XAxis,
   YAxis,
   CartesianGrid,
@@ -34,6 +28,8 @@ function Dashboard() {
   const [carregando, setCarregando] = useState(true)
 
   const [erro, setErro] = useState("")
+
+  const [gaugeValue, setGaugeValue] = useState(0)
 
 
   const alertas = [
@@ -79,45 +75,16 @@ function Dashboard() {
   ]
 
 
-  const evolucaoRisco = [
+  // Dados do gráfico (vêm da API; formato: [{ periodo: "Mar", risco: 22 }, ...])
+  const [evolucaoRisco, setEvolucaoRisco] = useState([])
+
+  const evolucaoDemo = [
 
     { periodo: "Mar", risco: 22 },
     { periodo: "Abr", risco: 35 },
     { periodo: "Mai", risco: 38 },
     { periodo: "Jun", risco: 58 },
     { periodo: "Jul", risco: 64 }
-
-  ]
-
-
-  // Média de frequência por dia da semana (todos os alunos)
-  const frequenciaPorDia = [
-
-    { dia: "Seg", frequencia: 92 },
-    { dia: "Ter", frequencia: 94 },
-    { dia: "Qua", frequencia: 90 },
-    { dia: "Qui", frequencia: 93 },
-    { dia: "Sex", frequencia: 85 }
-
-  ]
-
-
-  // Quantos alunos (dos 350) estão em cada nível de risco
-  const distribuicaoRisco = [
-
-    { nome: "Baixo", valor: 250, cor: "#22c55e" },
-    { nome: "Médio", valor: 80, cor: "#fdcb6e" },
-    { nome: "Alto", valor: 20, cor: "#ef4444" }
-
-  ]
-
-
-  // Frequência média (não risco) por turma
-  const frequenciaPorTurma = [
-
-    { turma: "1A", frequencia: 92 },
-    { turma: "2B", frequencia: 85 },
-    { turma: "3A", frequencia: 78 }
 
   ]
 
@@ -154,11 +121,31 @@ function Dashboard() {
 
       })
 
+      setEvolucaoRisco(evolucaoDemo)
+
       setCarregando(false)
 
       return
 
     }
+
+
+    // Gráfico carregado à parte: se falhar, o resto do dashboard continua funcionando
+    api.get("/dashboard/evolucao-risco")
+
+      .then(response => {
+
+        setEvolucaoRisco(response.data)
+
+      })
+
+      .catch(error => {
+
+        console.log(error)
+
+        setEvolucaoRisco([])
+
+      })
 
 
     api.get("/dashboard/resumo")
@@ -184,6 +171,43 @@ function Dashboard() {
       })
 
   }, [])
+
+
+  // Anima o número do gauge contando de 0 até o valor real
+  useEffect(() => {
+
+    if (dados?.taxaFrequenciaGeral == null) {
+      return
+    }
+
+    const valorFinal = dados.taxaFrequenciaGeral
+
+    let valorAtual = 0
+
+    const duracao = 900
+    const intervaloPasso = 16
+    const totalPassos = duracao / intervaloPasso
+    const incremento = valorFinal / totalPassos
+
+    const timer = setInterval(() => {
+
+      valorAtual += incremento
+
+      if (valorAtual >= valorFinal) {
+
+        valorAtual = valorFinal
+
+        clearInterval(timer)
+
+      }
+
+      setGaugeValue(Math.round(valorAtual))
+
+    }, intervaloPasso)
+
+    return () => clearInterval(timer)
+
+  }, [dados?.taxaFrequenciaGeral])
 
 
   function atualizarAvatar() {
@@ -231,10 +255,8 @@ function Dashboard() {
   }
 
 
-  const valorFrequencia = dados?.taxaFrequenciaGeral ?? 0
-
   const frequenciaGauge = [
-    { value: valorFrequencia, fill: "#22c55e" }
+    { value: gaugeValue, fill: "#22c55e" }
   ]
 
 
@@ -286,15 +308,6 @@ function Dashboard() {
           </div>
 
         </div>
-
-
-        {/* =========================
-            TÍTULO DA SEÇÃO
-        ========================= */}
-
-        <h2 className="section-title">
-          Visão Geral
-        </h2>
 
 
         {/* =========================
@@ -359,6 +372,15 @@ function Dashboard() {
 
 
         {/* =========================
+            TÍTULO DA SEÇÃO
+        ========================= */}
+
+        <h2 className="section-title">
+          Visão Geral
+        </h2>
+
+
+        {/* =========================
             GRÁFICO + GAUGE
         ========================= */}
 
@@ -373,6 +395,14 @@ function Dashboard() {
 
 
             <div className="risk-chart">
+
+              {evolucaoRisco.length === 0 ? (
+
+                <p>
+                  Ainda não há dados suficientes para exibir a evolução.
+                </p>
+
+              ) : (
 
               <ResponsiveContainer width="100%" height="100%">
 
@@ -420,6 +450,8 @@ function Dashboard() {
 
               </ResponsiveContainer>
 
+              )}
+
             </div>
 
           </div>
@@ -449,12 +481,11 @@ function Dashboard() {
                     dataKey="value"
                     cornerRadius={20}
                     isAnimationActive={true}
-                    animationDuration={900}
                   />
 
                   <Tooltip
                     formatter={() => [
-                      `${valorFrequencia}%`,
+                      `${dados?.taxaFrequenciaGeral}%`,
                       "Frequência"
                     ]}
                     contentStyle={{
@@ -470,193 +501,12 @@ function Dashboard() {
               </ResponsiveContainer>
 
               <div className="risk-gauge-label">
-                {valorFrequencia} %
+                {gaugeValue} %
               </div>
 
             </div>
 
           </div>
-
-        </div>
-
-
-        {/* =========================
-            SEGUNDA FILEIRA DE GRÁFICOS
-        ========================= */}
-
-        <div className="dashboard-charts-row-2">
-
-
-          {/* FREQUÊNCIA POR DIA DA SEMANA */}
-
-          <div className="mini-chart-card">
-
-            <h2>
-              Frequência por dia da semana
-            </h2>
-
-            <div className="mini-chart">
-
-              <ResponsiveContainer width="100%" height="100%">
-
-                <BarChart data={frequenciaPorDia}>
-
-                  <CartesianGrid
-                    strokeDasharray="3 3"
-                    stroke="#eee"
-                    vertical={false}
-                  />
-
-                  <XAxis
-                    dataKey="dia"
-                    fontSize={12}
-                    tickLine={false}
-                    axisLine={false}
-                  />
-
-                  <YAxis hide domain={[0, 100]} />
-
-                  <Tooltip
-                    formatter={(value) => [`${value}%`, "Frequência"]}
-                    contentStyle={{
-                      borderRadius: "10px",
-                      border: "1px solid #eee"
-                    }}
-                  />
-
-                  <Bar
-                    dataKey="frequencia"
-                    fill="#633df2"
-                    radius={[6, 6, 0, 0]}
-                    animationDuration={900}
-                  />
-
-                </BarChart>
-
-              </ResponsiveContainer>
-
-            </div>
-
-          </div>
-
-
-          {/* DISTRIBUIÇÃO DE RISCO */}
-
-          <div className="mini-chart-card">
-
-            <h2>
-              Distribuição de risco
-            </h2>
-
-            <div className="mini-chart">
-
-              <ResponsiveContainer width="100%" height="100%">
-
-                <PieChart>
-
-                  <Pie
-                    data={distribuicaoRisco}
-                    dataKey="valor"
-                    nameKey="nome"
-                    innerRadius={48}
-                    outerRadius={78}
-                    paddingAngle={3}
-                    animationDuration={900}
-                  >
-
-                    {distribuicaoRisco.map((item, index) => (
-                      <Cell
-                        key={index}
-                        fill={item.cor}
-                      />
-                    ))}
-
-                  </Pie>
-
-                  <Tooltip
-                    formatter={(value, nome) => [
-                      `${value} alunos`,
-                      nome
-                    ]}
-                    contentStyle={{
-                      borderRadius: "10px",
-                      border: "1px solid #eee"
-                    }}
-                  />
-
-                  <Legend
-                    verticalAlign="bottom"
-                    height={28}
-                    iconType="circle"
-                    iconSize={8}
-                    formatter={(value) => (
-                      <span style={{ fontSize: 12, color: "#444" }}>
-                        {value}
-                      </span>
-                    )}
-                  />
-
-                </PieChart>
-
-              </ResponsiveContainer>
-
-            </div>
-
-          </div>
-
-
-          {/* FREQUÊNCIA MÉDIA POR TURMA */}
-
-          <div className="mini-chart-card">
-
-            <h2>
-              Frequência média por turma
-            </h2>
-
-            <div className="mini-chart">
-
-              <ResponsiveContainer width="100%" height="100%">
-
-                <BarChart data={frequenciaPorTurma}>
-
-                  <CartesianGrid
-                    strokeDasharray="3 3"
-                    stroke="#eee"
-                    vertical={false}
-                  />
-
-                  <XAxis
-                    dataKey="turma"
-                    fontSize={12}
-                    tickLine={false}
-                    axisLine={false}
-                  />
-
-                  <YAxis hide domain={[0, 100]} />
-
-                  <Tooltip
-                    formatter={(value) => [`${value}%`, "Frequência"]}
-                    contentStyle={{
-                      borderRadius: "10px",
-                      border: "1px solid #eee"
-                    }}
-                  />
-
-                  <Bar
-                    dataKey="frequencia"
-                    fill="#4b25c9"
-                    radius={[6, 6, 0, 0]}
-                    animationDuration={900}
-                  />
-
-                </BarChart>
-
-              </ResponsiveContainer>
-
-            </div>
-
-          </div>
-
 
         </div>
 

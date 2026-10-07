@@ -1,152 +1,111 @@
-.report-cards{
-
-    display:flex;
-    gap:20px;
-    margin-bottom:30px;
-
+.report-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 24px;
 }
 
-
-
-.report-card{
-
-    background:white;
-    padding:25px;
-    border-radius:15px;
-    flex:1;
-    box-shadow:0 4px 15px rgba(0,0,0,0.08);
-
+.report-button {
+  background: #6c63ff;
+  color: #fff;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
 }
 
-
-
-.report-card h3{
-
-    color:#666;
-
+.report-button:hover {
+  background: #5a52e0;
 }
 
-
-
-.report-card p{
-
-    font-size:35px;
-    font-weight:bold;
-    color:#6C63FF;
-
+.report-button:focus-visible {
+  outline: 3px solid #c9c6ff;
+  outline-offset: 2px;
 }
 
-
-
-.report-button{
-
-    background:#6C63FF;
-    color:white;
-    border:none;
-    padding:12px 20px;
-    border-radius:10px;
-    cursor:pointer;
-
+.report-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-bottom: 30px;
 }
 
-
-
-.report-table-container{
-
-    background:white;
-    padding:25px;
-    border-radius:15px;
-
+.report-card {
+  flex: 1 1 200px;
+  background: #fff;
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
 }
 
-
-
-.report-table{
-
-    width:100%;
-    margin-top:20px;
-    border-collapse:collapse;
-
+.report-card h3 {
+  margin: 0;
+  color: #666;
+  font-size: 16px;
+  font-weight: 500;
 }
 
-
-
-.report-table th{
-
-    background:#111827;
-    color:white;
-    padding:15px;
-    text-align:left;
-
+.report-card p {
+  margin: 8px 0 0;
+  font-size: 35px;
+  font-weight: bold;
+  color: #6c63ff;
 }
 
-
-
-.report-table td{
-
-    padding:15px;
-    border-bottom:1px solid #ddd;
-
+.report-table-container {
+  background: #fff;
+  padding: 25px;
+  border-radius: 15px;
 }
 
-/* ========================================
-   MODO ESCURO — RELATÓRIOS
-======================================== */
-
-[data-theme="dark"] .report-card {
-    background: #141b2d;
-    color: #e8edf5;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.35);
+.report-table-container h2 {
+  margin: 0;
 }
 
-[data-theme="dark"] .report-card h3 {
-    color: #c4cedb;
+.report-table-scroll {
+  overflow-x: auto;
 }
 
-[data-theme="dark"] .report-card p {
-    color: #8b7cff;
+.report-table {
+  width: 100%;
+  margin-top: 20px;
+  border-collapse: collapse;
 }
 
-
-/* ========================================
-   BOTÃO
-======================================== */
-
-[data-theme="dark"] .report-button {
-    background: #6c63ff;
-    color: #ffffff;
+.report-table th {
+  background: #111827;
+  color: #fff;
+  padding: 15px;
+  text-align: left;
 }
 
-
-/* ========================================
-   CONTAINER DA TABELA
-======================================== */
-
-[data-theme="dark"] .report-table-container {
-    background: #141b2d;
-    color: #e8edf5;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.35);
+.report-table td {
+  padding: 15px;
+  border-bottom: 1px solid #ddd;
 }
 
-
-/* ========================================
-   TABELA
-======================================== */
-
-[data-theme="dark"] .report-table {
-    color: #e8edf5;
+.report-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 14px;
 }
 
-[data-theme="dark"] .report-table th {
-    background: #111827;
-    color: #f8fafc;
+.report-badge--ok {
+  background: #dcfce7;
+  color: #166534;
 }
 
-[data-theme="dark"] .report-table td {
-    color: #e8edf5;
-    border-bottom-color: #2a3850;
+.report-badge--atencao {
+  background: #fef3c7;
+  color: #92400e;
 }
 
-[data-theme="dark"] .report-table tbody tr:hover {
-    background: #1a2437;
+.report-badge--risco {
+  background: #fee2e2;
+  color: #991b1b;
 }
