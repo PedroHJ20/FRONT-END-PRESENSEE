@@ -1,28 +1,23 @@
 import { useState } from "react"
 import "../styles/CadastroEscola.css"
 
-
 function gerarSenhaTemporaria() {
-
   const caracteres = "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz23456789"
-
   let senha = ""
+  
+  // Correção SonarQube: Substituição do Math.random por criptografia segura
+  const array = new Uint32Array(8)
+  window.crypto.getRandomValues(array)
 
   for (let i = 0; i < 8; i++) {
-    senha += caracteres.charAt(
-      Math.floor(Math.random() * caracteres.length)
-    )
+    senha += caracteres.charAt(array[i] % caracteres.length)
   }
 
   return senha
-
 }
 
-
 function CadastroEscola() {
-
   const [etapa, setEtapa] = useState(1)
-
   const [copiado, setCopiado] = useState(false)
 
   const [escola, setEscola] = useState({
@@ -41,7 +36,6 @@ function CadastroEscola() {
 
   const [senhaGerada, setSenhaGerada] = useState("")
 
-
   function atualizarEscola(campo, valor) {
     setEscola({ ...escola, [campo]: valor })
   }
@@ -50,44 +44,35 @@ function CadastroEscola() {
     setAdmin({ ...admin, [campo]: valor })
   }
 
-
   function avancarParaAdmin(e) {
     e.preventDefault()
     setEtapa(2)
   }
 
-
   function finalizarCadastro(e) {
-
     e.preventDefault()
-
     const senha = gerarSenhaTemporaria()
-
     setSenhaGerada(senha)
-
     setEtapa(3)
-
   }
 
-
-  function copiarCredenciais() {
-
+  // Correção SonarQube: Função assíncrona com tratamento de erro
+  async function copiarCredenciais() {
     const texto =
       `Escola: ${escola.nome}\n` +
       `Login: ${admin.email}\n` +
       `Senha temporária: ${senhaGerada}`
 
-    navigator.clipboard.writeText(texto)
-
-    setCopiado(true)
-
-    setTimeout(() => setCopiado(false), 2000)
-
+    try {
+      await navigator.clipboard.writeText(texto)
+      setCopiado(true)
+      setTimeout(() => setCopiado(false), 2000)
+    } catch (err) {
+      console.error("Erro ao copiar para a área de transferência:", err)
+    }
   }
 
-
   function novoCadastro() {
-
     setEscola({
       nome: "",
       codigoInep: "",
@@ -95,68 +80,46 @@ function CadastroEscola() {
       cidade: "",
       estado: ""
     })
-
     setAdmin({
       nome: "",
       cargo: "Coordenador(a)",
       email: ""
     })
-
     setSenhaGerada("")
-
     setEtapa(1)
-
   }
 
-
   return (
-
     <div className="cadastro-escola-page">
-
       <div className="cadastro-escola-card">
-
-
         <div className="cadastro-escola-header">
-
           <span className="painel-interno-tag">
             Painel interno — uso exclusivo da equipe PresenSee
           </span>
-
-          <h1>
-            Cadastrar nova escola
-          </h1>
+          <h1>Cadastrar nova escola</h1>
 
           {etapa < 3 && (
-
             <div className="cadastro-escola-steps">
-
               <div className={`step ${etapa >= 1 ? "ativo" : ""}`}>
                 1. Escola
               </div>
-
               <div className="step-linha" />
-
               <div className={`step ${etapa >= 2 ? "ativo" : ""}`}>
                 2. Admin
               </div>
-
             </div>
-
           )}
-
         </div>
-
 
         {/* =========================
             ETAPA 1 — DADOS DA ESCOLA
         ========================= */}
-
         {etapa === 1 && (
-
           <form onSubmit={avancarParaAdmin}>
-
-            <label>Nome da escola</label>
+            {/* Correção SonarQube: Adição do htmlFor e id em todas as labels */}
+            <label htmlFor="escola-nome">Nome da escola</label>
             <input
+              id="escola-nome"
               className="cadastro-input"
               type="text"
               placeholder="Ex: Escola Técnica Estadual"
@@ -165,8 +128,9 @@ function CadastroEscola() {
               required
             />
 
-            <label>Código INEP</label>
+            <label htmlFor="escola-inep">Código INEP</label>
             <input
+              id="escola-inep"
               className="cadastro-input"
               type="text"
               placeholder="Ex: 26123456"
@@ -174,8 +138,9 @@ function CadastroEscola() {
               onChange={(e) => atualizarEscola("codigoInep", e.target.value)}
             />
 
-            <label>Rede de ensino</label>
+            <label htmlFor="escola-rede">Rede de ensino</label>
             <select
+              id="escola-rede"
               className="cadastro-input"
               value={escola.rede}
               onChange={(e) => atualizarEscola("rede", e.target.value)}
@@ -186,10 +151,10 @@ function CadastroEscola() {
             </select>
 
             <div className="cadastro-linha-dupla">
-
               <div>
-                <label>Cidade</label>
+                <label htmlFor="escola-cidade">Cidade</label>
                 <input
+                  id="escola-cidade"
                   className="cadastro-input"
                   type="text"
                   value={escola.cidade}
@@ -199,8 +164,9 @@ function CadastroEscola() {
               </div>
 
               <div>
-                <label>Estado</label>
+                <label htmlFor="escola-estado">Estado</label>
                 <input
+                  id="escola-estado"
                   className="cadastro-input"
                   type="text"
                   placeholder="PE"
@@ -210,28 +176,22 @@ function CadastroEscola() {
                   required
                 />
               </div>
-
             </div>
 
             <button className="cadastro-button" type="submit">
               Continuar
             </button>
-
           </form>
-
         )}
-
 
         {/* =========================
             ETAPA 2 — DADOS DO ADMIN
         ========================= */}
-
         {etapa === 2 && (
-
           <form onSubmit={finalizarCadastro}>
-
-            <label>Nome completo</label>
+            <label htmlFor="admin-nome">Nome completo</label>
             <input
+              id="admin-nome"
               className="cadastro-input"
               type="text"
               value={admin.nome}
@@ -239,8 +199,9 @@ function CadastroEscola() {
               required
             />
 
-            <label>Cargo</label>
+            <label htmlFor="admin-cargo">Cargo</label>
             <select
+              id="admin-cargo"
               className="cadastro-input"
               value={admin.cargo}
               onChange={(e) => atualizarAdmin("cargo", e.target.value)}
@@ -250,8 +211,9 @@ function CadastroEscola() {
               <option>Secretaria</option>
             </select>
 
-            <label>E-mail institucional</label>
+            <label htmlFor="admin-email">E-mail institucional</label>
             <input
+              id="admin-email"
               className="cadastro-input"
               type="email"
               placeholder="nome@escola.edu.br"
@@ -261,7 +223,6 @@ function CadastroEscola() {
             />
 
             <div className="cadastro-botoes-duplos">
-
               <button
                 type="button"
                 className="cadastro-button-voltar"
@@ -269,52 +230,38 @@ function CadastroEscola() {
               >
                 Voltar
               </button>
-
               <button className="cadastro-button" type="submit">
                 Cadastrar escola
               </button>
-
             </div>
-
           </form>
-
         )}
-
 
         {/* =========================
             ETAPA 3 — CONFIRMAÇÃO
         ========================= */}
-
         {etapa === 3 && (
-
           <div className="cadastro-confirmacao">
-
             <div className="confirmacao-icone">✓</div>
-
             <h2>Escola cadastrada!</h2>
-
             <p>
               Copie as credenciais abaixo e envie pra administração
               da escola. Peça pra trocarem a senha no primeiro acesso.
             </p>
 
             <div className="credenciais-box">
-
               <div>
                 <span>Escola</span>
                 <strong>{escola.nome}</strong>
               </div>
-
               <div>
                 <span>Login</span>
                 <strong>{admin.email}</strong>
               </div>
-
               <div>
                 <span>Senha temporária</span>
                 <strong>{senhaGerada}</strong>
               </div>
-
             </div>
 
             <button
@@ -330,18 +277,11 @@ function CadastroEscola() {
             >
               Cadastrar outra escola
             </button>
-
           </div>
-
         )}
-
-
       </div>
-
     </div>
-
   )
-
 }
 
 export default CadastroEscola
