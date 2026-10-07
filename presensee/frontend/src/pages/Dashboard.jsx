@@ -79,18 +79,6 @@ function Dashboard() {
   ]
 
 
-  const evolucaoRisco = [
-
-    { periodo: "Mar", risco: 22 },
-    { periodo: "Abr", risco: 35 },
-    { periodo: "Mai", risco: 38 },
-    { periodo: "Jun", risco: 58 },
-    { periodo: "Jul", risco: 64 }
-
-  ]
-
-
-  // Média de frequência por dia da semana (todos os alunos)
   const frequenciaPorDia = [
 
     { dia: "Seg", frequencia: 92 },
@@ -102,7 +90,6 @@ function Dashboard() {
   ]
 
 
-  // Quantos alunos (dos 350) estão em cada nível de risco
   const distribuicaoRisco = [
 
     { nome: "Baixo", valor: 250, cor: "#22c55e" },
@@ -112,12 +99,26 @@ function Dashboard() {
   ]
 
 
-  // Frequência média (não risco) por turma
   const frequenciaPorTurma = [
 
     { turma: "1A", frequencia: 92 },
     { turma: "2B", frequencia: 85 },
     { turma: "3A", frequencia: 78 }
+
+  ]
+
+
+  // Dados do gráfico de evolução: vêm da API (trazido pela Echilin).
+  // Enquanto não responde, fica em branco e mostra o aviso abaixo.
+  const [evolucaoRisco, setEvolucaoRisco] = useState([])
+
+  const evolucaoDemo = [
+
+    { periodo: "Mar", risco: 22 },
+    { periodo: "Abr", risco: 35 },
+    { periodo: "Mai", risco: 38 },
+    { periodo: "Jun", risco: 58 },
+    { periodo: "Jul", risco: 64 }
 
   ]
 
@@ -154,11 +155,31 @@ function Dashboard() {
 
       })
 
+      setEvolucaoRisco(evolucaoDemo)
+
       setCarregando(false)
 
       return
 
     }
+
+
+    // Gráfico carregado à parte: se falhar, o resto do dashboard continua funcionando
+    api.get("/dashboard/evolucao-risco")
+
+      .then(response => {
+
+        setEvolucaoRisco(response.data)
+
+      })
+
+      .catch(error => {
+
+        console.log(error)
+
+        setEvolucaoRisco([])
+
+      })
 
 
     api.get("/dashboard/resumo")
@@ -231,6 +252,8 @@ function Dashboard() {
   }
 
 
+  // Valor do gauge vem direto de "dados" — sem contagem manual,
+  // pra nunca travar em 0% como já aconteceu antes.
   const valorFrequencia = dados?.taxaFrequenciaGeral ?? 0
 
   const frequenciaGauge = [
@@ -290,6 +313,7 @@ function Dashboard() {
 
         {/* =========================
             TÍTULO DA SEÇÃO
+            (acima dos cards, não só dos gráficos)
         ========================= */}
 
         <h2 className="section-title">
@@ -374,51 +398,61 @@ function Dashboard() {
 
             <div className="risk-chart">
 
-              <ResponsiveContainer width="100%" height="100%">
+              {evolucaoRisco.length === 0 ? (
 
-                <LineChart data={evolucaoRisco}>
+                <p>
+                  Ainda não há dados suficientes para exibir a evolução.
+                </p>
 
-                  <CartesianGrid
-                    strokeDasharray="3 3"
-                    stroke="rgba(255, 255, 255, 0.15)"
-                    vertical={false}
-                  />
+              ) : (
 
-                  <XAxis
-                    dataKey="periodo"
-                    stroke="rgba(255, 255, 255, 0.65)"
-                    fontSize={12}
-                    tickLine={false}
-                    axisLine={false}
-                  />
+                <ResponsiveContainer width="100%" height="100%">
 
-                  <YAxis hide />
+                  <LineChart data={evolucaoRisco}>
 
-                  <Tooltip
-                    formatter={(value) => [`${value}%`, "Risco"]}
-                    contentStyle={{
-                      background: "#2a1b6b",
-                      border: "none",
-                      borderRadius: "10px",
-                      color: "white"
-                    }}
-                    labelStyle={{ color: "#ffc66d", fontWeight: "bold" }}
-                    cursor={{ stroke: "rgba(255,255,255,0.2)" }}
-                  />
+                    <CartesianGrid
+                      strokeDasharray="3 3"
+                      stroke="rgba(255, 255, 255, 0.15)"
+                      vertical={false}
+                    />
 
-                  <Line
-                    type="monotone"
-                    dataKey="risco"
-                    stroke="#ffc66d"
-                    strokeWidth={3}
-                    dot={{ fill: "#ffc66d", r: 5 }}
-                    activeDot={{ r: 7 }}
-                    animationDuration={900}
-                  />
+                    <XAxis
+                      dataKey="periodo"
+                      stroke="rgba(255, 255, 255, 0.65)"
+                      fontSize={12}
+                      tickLine={false}
+                      axisLine={false}
+                    />
 
-                </LineChart>
+                    <YAxis hide />
 
-              </ResponsiveContainer>
+                    <Tooltip
+                      formatter={(value) => [`${value}%`, "Risco"]}
+                      contentStyle={{
+                        background: "#2a1b6b",
+                        border: "none",
+                        borderRadius: "10px",
+                        color: "white"
+                      }}
+                      labelStyle={{ color: "#ffc66d", fontWeight: "bold" }}
+                      cursor={{ stroke: "rgba(255,255,255,0.2)" }}
+                    />
+
+                    <Line
+                      type="monotone"
+                      dataKey="risco"
+                      stroke="#ffc66d"
+                      strokeWidth={3}
+                      dot={{ fill: "#ffc66d", r: 5 }}
+                      activeDot={{ r: 7 }}
+                      animationDuration={900}
+                    />
+
+                  </LineChart>
+
+                </ResponsiveContainer>
+
+              )}
 
             </div>
 
@@ -487,8 +521,6 @@ function Dashboard() {
         <div className="dashboard-charts-row-2">
 
 
-          {/* FREQUÊNCIA POR DIA DA SEMANA */}
-
           <div className="mini-chart-card">
 
             <h2>
@@ -539,8 +571,6 @@ function Dashboard() {
 
           </div>
 
-
-          {/* DISTRIBUIÇÃO DE RISCO */}
 
           <div className="mini-chart-card">
 
@@ -604,8 +634,6 @@ function Dashboard() {
 
           </div>
 
-
-          {/* FREQUÊNCIA MÉDIA POR TURMA */}
 
           <div className="mini-chart-card">
 

@@ -1127,3 +1127,246 @@
     gap: 2px;
   }
 }
+
+/* =========================================================
+   MODO ESCURO
+========================================================= */
+
+[data-theme="dark"] .alunos-page {
+  color: #e8edf5;
+}
+
+/* Cabeçalho */
+[data-theme="dark"] .alunos-header h1 {
+  color: #f8fafc;
+}
+
+[data-theme="dark"] .alunos-header p {
+  color: #a98cff;
+}
+
+/* Busca */
+[data-theme="dark"] .search-aluno {
+  background: #141b2d;
+  color: #e8edf5;
+  border-color: #2a3850;
+}
+
+[data-theme="dark"] .search-aluno::placeholder {
+  color: #8b98aa;
+}
+
+[data-theme="dark"] .search-aluno:focus {
+  border-color: #7c5cff;
+}
+
+/* Tabela principal */
+[data-theme="dark"] .students-table {
+  background: #141b2d;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.35);
+}
+
+[data-theme="dark"] .students-table th {
+  background: #111827;
+  color: #f8fafc;
+}
+
+[data-theme="dark"] .students-table td {
+  color: #e8edf5;
+  border-bottom-color: #2a3850;
+}
+
+[data-theme="dark"] .students-table tbody tr:hover {
+  background: #1a2437;
+}
+
+/* Paginação */
+[data-theme="dark"] .pagination {
+  color: #b8c2d1;
+}
+
+/* Popup principal */
+[data-theme="dark"] .student-modal,
+[data-theme="dark"] .frequency-modal,
+[data-theme="dark"] .detail-modal {
+  background: #141b2d;
+  color: #e8edf5;
+}
+
+[data-theme="dark"] .close-modal {
+  color: #a8b3c2;
+}
+
+[data-theme="dark"] .close-modal:hover {
+  color: #ffffff;
+}
+
+/* Cabeçalho do popup */
+[data-theme="dark"] .student-modal-header h2,
+[data-theme="dark"] .frequency-student-header h2,
+[data-theme="dark"] .detail-student-header h2 {
+  color: #f8fafc;
+}
+
+[data-theme="dark"] .student-modal-header p,
+[data-theme="dark"] .frequency-student-header p,
+[data-theme="dark"] .detail-student-header p {
+  color: #a8b3c2;
+}
+
+/* Resumo do aluno */
+[data-theme="dark"] .student-summary > div,
+[data-theme="dark"] .student-summary > button {
+  background: #1b2639;
+}
+
+[data-theme="dark"] .student-summary strong {
+  color: #f8fafc;
+}
+
+[data-theme="dark"] .student-summary span {
+  color: #a8b3c2;
+}
+
+[data-theme="dark"] .frequency-summary strong {
+  color: #a98cff;
+}
+
+[data-theme="dark"] .frequency-summary:hover {
+  background: #292044;
+}
+
+/* Motivos do risco */
+[data-theme="dark"] .risk-reason h3 {
+  color: #f8fafc;
+}
+
+[data-theme="dark"] .risk-reason div {
+  color: #a8b3c2;
+}
+
+/* Ações */
+[data-theme="dark"] .student-actions button {
+  background: #1b2639;
+  border-color: #35445c;
+  color: #e8edf5;
+}
+
+[data-theme="dark"] .student-actions button span {
+  color: #e8edf5;
+}
+
+[data-theme="dark"] .student-actions button:hover {
+  background: #292044;
+  border-color: #7c5cff;
+}
+
+/* Título da frequência */
+[data-theme="dark"] .frequency-title h2 {
+  color: #f8fafc;
+}
+
+[data-theme="dark"] .frequency-title p {
+  color: #a8b3c2;
+}
+
+[data-theme="dark"] .frequency-circle span {
+  color: #f8fafc;
+}
+
+[data-theme="dark"] .frequency-week span {
+  color: #a8b3c2;
+}
+
+[data-theme="dark"] .day-number {
+  color: #e8edf5;
+}
+
+/* Seletor de mês */
+[data-theme="dark"] .frequency-month-select {
+  background: #141b2d;
+  color: #e8edf5;
+  border-color: #35445c;
+}
+
+/* Modal de detalhes */
+[data-theme="dark"] .detail-student-header {
+  border-bottom-color: #2a3850;
+}
+
+[data-theme="dark"] .detail-title {
+  color: #f8fafc;
+}
+
+[data-theme="dark"] .detail-subtitle {
+  color: #a8b3c2;
+}
+
+[data-theme="dark"] .empty-message {
+  color: #8f9bad;
+}
+
+/* Filtro de notas */
+[data-theme="dark"] .notes-filter {
+  color: #c4cedb;
+}
+
+[data-theme="dark"] .notes-filter select {
+  background: #1b2639;
+  color: #e8edf5;
+  border-color: #7c5cff;
+}
+
+/* Tabela de notas */
+[data-theme="dark"] .notes-table-wrapper {
+  border-color: #2a3850;
+}
+
+[data-theme="dark"] .notes-table thead th {
+  background: #111827;
+  color: #f8fafc;
+}
+
+[data-theme="dark"] .notes-table tbody td {
+  color: #e8edf5;
+  border-bottom-color: #2a3850;
+}
+
+[data-theme="dark"] .notes-table tbody tr:hover {
+  background: #1a2437;
+}
+
+/* Média das notas */
+[data-theme="dark"] .notes-average {
+  background: #211b3b;
+  color: #c4cedb;
+}
+
+[data-theme="dark"] .notes-average strong {
+  color: #a98cff;
+}
+
+/* Ocorrências */
+[data-theme="dark"] .occurrence-item {
+  background: #1b2639;
+}
+
+[data-theme="dark"] .occurrence-item:hover {
+  background: #292044;
+}
+
+[data-theme="dark"] .occurrence-icon {
+  background: #253149;
+}
+
+[data-theme="dark"] .occurrence-top strong {
+  color: #f8fafc;
+}
+
+[data-theme="dark"] .occurrence-top span {
+  color: #9ba8b8;
+}
+
+[data-theme="dark"] .occurrence-content p {
+  color: #c4cedb;
+}

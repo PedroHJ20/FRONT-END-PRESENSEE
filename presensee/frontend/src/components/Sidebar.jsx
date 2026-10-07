@@ -1,5 +1,5 @@
 import { NavLink, useNavigate } from "react-router-dom"
-import { useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { getUsuario, logout } from "../services/auth"
 import "../styles/Sidebar.css"
 
@@ -14,6 +14,8 @@ import {
   IconLogout,
   IconCollapse,
   IconCamera,
+  IconSun,
+  IconMoon,
   MascotAvatar,
 } from "./Icons"
 
@@ -40,7 +42,22 @@ function Sidebar() {
     localStorage.getItem("sidebarCollapsed") === "true"
   )
 
+  const [tema, setTema] = useState(
+    localStorage.getItem("tema") || "light"
+  )
+
   const inputAvatar = useRef(null)
+
+
+  // Aplica o tema no <html> assim que a sidebar monta e sempre que muda
+  useEffect(() => {
+
+    document.documentElement.setAttribute("data-theme", tema)
+
+    localStorage.setItem("tema", tema)
+
+  }, [tema])
+
 
   function handleLogout() {
     logout()
@@ -51,6 +68,10 @@ function Sidebar() {
     const novoValor = !collapsed
     setCollapsed(novoValor)
     localStorage.setItem("sidebarCollapsed", String(novoValor))
+  }
+
+  function alternarTema() {
+    setTema(tema === "light" ? "dark" : "light")
   }
 
   function escolherAvatar(e) {
@@ -80,7 +101,7 @@ function Sidebar() {
 
         <div className="sidebar-logo">
           {!collapsed && (
-            <h2 className="brand-font"translate="no">
+            <h2 className="brand-font" translate="no">
               Presen<span>See</span>
             </h2>
           )}
@@ -108,6 +129,19 @@ function Sidebar() {
         ))}
 
       </nav>
+
+      {/* MODO ESCURO / CLARO */}
+
+      <button
+        className="theme-toggle"
+        onClick={alternarTema}
+        title={tema === "light" ? "Ativar modo escuro" : "Ativar modo claro"}
+      >
+        {tema === "light" ? <IconMoon /> : <IconSun />}
+        {!collapsed && (
+          <span>{tema === "light" ? "Modo escuro" : "Modo claro"}</span>
+        )}
+      </button>
 
       {/* USUÁRIO */}
 

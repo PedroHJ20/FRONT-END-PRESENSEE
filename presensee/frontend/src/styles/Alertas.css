@@ -73,3 +73,45 @@
     border-radius:20px;
 
 }
+
+/* ========================================
+   MODO ESCURO — ALERTAS
+======================================== */
+
+[data-theme="dark"] .alert-card {
+    background: #141b2d;
+    color: #e8edf5;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.35);
+}
+
+[data-theme="dark"] .alert-card h3 {
+    color: #f8fafc;
+}
+
+[data-theme="dark"] .alert-card p {
+    color: #c4cedb;
+}
+
+
+/* ========================================
+   NÍVEIS DE ALERTA
+======================================== */
+
+[data-theme="dark"] .high {
+    background: #ff6b6b;
+    color: #ffffff;
+}
+
+[data-theme="dark"] .medium {
+    background: #e5b84f;
+    color: #ffffff;
+}
+
+
+/* ========================================
+   LISTA DE ALERTAS
+======================================== */
+
+[data-theme="dark"] .alerts-container {
+    color: #e8edf5;
+}

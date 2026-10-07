@@ -48,3 +48,27 @@ body {
   font-style: italic;
   font-weight: 800;
 }
+
+[data-theme="dark"] {
+  --color-primary: #7c5cff;
+  --color-primary-dark: #6747e8;
+  --color-sidebar: #0f1e2e;
+
+  --color-success: #22c55e;
+  --color-warning: #f5c451;
+  --color-warning-text: #f5c451;
+  --color-danger: #ff6b6b;
+
+  --color-dark: #f1f5f9;
+  --color-bg: #0b1220;
+  --color-border: #263449;
+  --color-text: #e8edf5;
+  --color-text-muted: #a8b3c2;
+
+  --shadow-card: 0 4px 15px rgba(0, 0, 0, 0.25);
+}
+
+[data-theme="dark"] body {
+  background: var(--color-bg);
+  color: var(--color-text);
+}

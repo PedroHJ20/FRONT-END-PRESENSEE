@@ -15,7 +15,7 @@
   color: white;
   flex-shrink: 0;
   overflow: hidden;
-  transition: width 0.2s ease;
+  transition: width 0.2s ease, background 0.2s ease;
 }
 
 .sidebar.collapsed {
@@ -124,6 +124,37 @@
 
 .sidebar-menu a.active {
   background: rgba(255, 255, 255, 0.15);
+}
+
+/* =========================
+   BOTÃO DE TEMA (escuro/claro)
+========================= */
+
+.theme-toggle {
+  flex-shrink: 0;
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: left;
+  transition: 0.2s;
+}
+
+.sidebar.collapsed .theme-toggle {
+  justify-content: center;
+}
+
+.theme-toggle:hover {
+  background: rgba(255, 255, 255, 0.18);
 }
 
 /* =========================
@@ -246,4 +277,40 @@
   .sidebar.collapsed {
     width: var(--sidebar-width-collapsed);
   }
+}
+
+
+/* =========================
+   MODO ESCURO — a própria sidebar
+   (ciano no lugar do roxo, como combinado)
+========================= */
+
+[data-theme="dark"] .sidebar {
+  background: #0f1e2e;
+}
+
+[data-theme="dark"] .sidebar-logo h2 span {
+  color: #22d3c5;
+}
+
+[data-theme="dark"] .sidebar-menu a:hover {
+  background: rgba(34, 211, 197, 0.1);
+}
+
+[data-theme="dark"] .sidebar-menu a.active {
+  background: rgba(34, 211, 197, 0.18);
+}
+
+[data-theme="dark"] .collapse-toggle,
+[data-theme="dark"] .theme-toggle {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+[data-theme="dark"] .collapse-toggle:hover,
+[data-theme="dark"] .theme-toggle:hover {
+  background: rgba(34, 211, 197, 0.15);
+}
+
+[data-theme="dark"] .logout-button:hover {
+  background: rgba(239, 68, 68, 0.15);
 }

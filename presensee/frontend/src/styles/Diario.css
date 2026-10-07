@@ -686,3 +686,84 @@
   outline: 3px solid #b9a8ff;
   outline-offset: 2px;
 }
+
+/* =========================================================
+   MODO ESCURO - DIÁRIO DO MONITOR
+========================================================= */
+
+/* Página */
+[data-theme="dark"] .diario-page {
+  color: #e8edf5;
+}
+
+/* Títulos e textos principais */
+[data-theme="dark"] .diario-page h1,
+[data-theme="dark"] .diario-page h2,
+[data-theme="dark"] .diario-page h3 {
+  color: #f8fafc;
+}
+
+[data-theme="dark"] .diario-page p {
+  color: #c4cedb;
+}
+
+/* Cards brancos */
+[data-theme="dark"] .card-branco {
+  background: #141b2d;
+  color: #e8edf5;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+}
+
+/* Textos das listas */
+[data-theme="dark"] .diario-lista li {
+  color: #e8edf5;
+  border-bottom-color: #2a3850;
+}
+
+[data-theme="dark"] .diario-lista small {
+  color: #a8b3c2;
+}
+
+[data-theme="dark"] .diario-link-aluno {
+  color: #a98cff;
+}
+
+/* Botões de expansão */
+[data-theme="dark"] .expand-btn {
+  background: #7653f6;
+  color: #ffffff;
+}
+
+[data-theme="dark"] .expand-btn:hover {
+  background: #6845e8;
+}
+
+/* Texto dos gauges */
+[data-theme="dark"] .gauge-chart-label {
+  color: #f8fafc;
+}
+
+/* Cards dos gauges */
+[data-theme="dark"] .risk-gauge-card {
+  background: #141b2d;
+  color: #e8edf5;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+}
+
+[data-theme="dark"] .risk-gauge-card h2 {
+  color: #f8fafc;
+}
+
+[data-theme="dark"] .risk-gauge-label {
+  color: #f8fafc;
+}
+
+/* Textos dentro dos painéis */
+[data-theme="dark"] .diario-lista strong {
+  color: #f8fafc;
+}
+
+/* Separadores */
+[data-theme="dark"] .diario-lista li {
+  border-bottom-color: #2a3850;
+}
