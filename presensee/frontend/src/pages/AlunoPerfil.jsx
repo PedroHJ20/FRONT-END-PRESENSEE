@@ -164,7 +164,7 @@ function AlunoPerfil() {
                 <dd>{aluno.email}</dd>
 
                 <dt>Responsável</dt>
-                <dd>{aluno.responsavel}</dd>
+                <dd>{aluno.responsaveis.map(r => r.nome).join(", ")}</dd>
 
               </dl>
 
