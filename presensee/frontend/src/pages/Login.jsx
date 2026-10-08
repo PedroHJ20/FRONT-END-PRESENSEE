@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
+import ReCAPTCHA from "react-google-recaptcha"
 import api from "../services/api"
 import "../styles/Login.css"
 
@@ -12,14 +13,22 @@ function Login() {
   const [senha, setSenha] = useState("")
   const [mostrarSenha, setMostrarSenha] = useState(false)
   const [erro, setErro] = useState("")
+  const [recaptchaToken, setRecaptchaToken] = useState(null)
 
 
   async function handleLogin(e) {
 
     e.preventDefault()
 
+    setErro("")
+
     if (email === "" || senha === "") {
       setErro("Preencha todos os campos")
+      return
+    }
+
+    if (!recaptchaToken) {
+      setErro("Confirme que você não é um robô")
       return
     }
 
@@ -27,7 +36,8 @@ function Login() {
 
       const response = await api.post("/auth/login", {
         email: email,
-        senha: senha
+        senha: senha,
+        recaptchaToken: recaptchaToken
       })
 
       localStorage.setItem("token", response.data.token)
@@ -39,6 +49,7 @@ function Login() {
     catch (error) {
       console.log(error)
       setErro("Email ou senha inválidos")
+      setRecaptchaToken(null)
     }
 
   }
@@ -68,17 +79,18 @@ function Login() {
       {/* FUNDO */}
       <div className="login-blob-bg blob-a" />
       <div className="login-blob-bg blob-b" />
-       <div className="login-blob-bg blob-a" />
-<div className="login-blob-bg blob-a" />
-<div className="login-blob-bg blob-b" />
-<div className="login-shape shape-fill-1" />
-<div className="login-shape shape-fill-2" />
-<div className="login-shape shape-ring" />
-<div className="login-shape shape-outline" />
+      <div className="login-blob-bg blob-a" />
+      <div className="login-blob-bg blob-a" />
+      <div className="login-blob-bg blob-b" />
+      <div className="login-shape shape-fill-1" />
+      <div className="login-shape shape-fill-2" />
+      <div className="login-shape shape-ring" />
+      <div className="login-shape shape-outline" />
+
       {/* LOGO */}
       <div className="login-topbar">
         <span className="login-ring-deco" />
-        <h2 className="brand-font login-logo"translate="no">
+        <h2 className="brand-font login-logo" translate="no">
           Presen<span>See</span>
         </h2>
       </div>
@@ -154,6 +166,20 @@ function Login() {
             >
               {mostrarSenha ? "Ocultar senha" : "Mostrar senha"}
             </p>
+
+            {/* reCAPTCHA */}
+            <div className="recaptcha-container">
+              <ReCAPTCHA
+                sitekey={import.meta.env.VITE_RECAPTCHA_SITE_KEY}
+                onChange={(token) => {
+                  setRecaptchaToken(token)
+                  setErro("")
+                }}
+                onExpired={() => {
+                  setRecaptchaToken(null)
+                }}
+              />
+            </div>
 
             {erro && (
               <p className="error-message">{erro}</p>
